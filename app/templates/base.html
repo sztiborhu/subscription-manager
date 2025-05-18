@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="hu">
+    <head>
+        <meta charset="UTF-8">
+        <title>ElőfizetésManager - {{ title }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
+        <div class="navbar">
+            <nav>
+                <a href="{{ url_for('main.main_page') }}" {% if request.endpoint == 'main.main_page' %}class="active"{% endif %}>Főoldal</a>
+                <a href="{{ url_for('main.subscriptions_page') }}" {% if request.endpoint == 'main.subscriptions_page' %}class="active"{% endif %}>Előfizetéseim</a>
+                <a href="{{ url_for('main.categories_page') }}" {% if request.endpoint == 'main.categories_page' %}class="active"{% endif %}>Kategóriák</a>
+                <a href="{{ url_for('main.profile_page') }}" {% if request.endpoint == 'main.profile_page' %}class="active"{% endif %}>Profil</a>
+                <a href="{{ url_for('main.help_page') }}" {% if request.endpoint == 'main.help_page' %}class="active"{% endif %}>Segítség</a>
+                {% if current_user.is_anonymous %}
+                    <a href="{{ url_for('main.login_page') }}" {% if request.endpoint == 'main.login_page' %}class="active"{% endif %}>Bejelentkezés</a>
+                {% else %}
+                    <a href="{{ url_for('main.logout_page') }}">Kijelentkezés</a>
+                {% endif %}
+            </nav>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </body>
+</html>

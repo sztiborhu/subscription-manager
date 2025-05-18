@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="subscriptions-page">
+    <h1>Előfizetés szerkesztése</h1>
+    <form method="POST" action="{{ url_for('main.edit_subscription', subscription_id=subscription.id) }}">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}
+            {% for error in form.name.errors %}
+            <br><span style="color: red;">{{ error }}</span>
+            {% endfor %}<br>
+
+            {{ form.category.label }}<br>
+            {{ form.category(size=5) }}
+            {% for error in form.category.errors %}
+            <br><span style="color: red;">{{ error }}</span>
+            {% endfor %}<br>
+
+            {{ form.price.label }}<br>
+            {{ form.price(size=32) }}
+            {% for error in form.price.errors %}
+            <br><span style="color: red;">{{ error }}</span>
+            {% endfor %}<br>
+        </p>
+        <br>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+
+</div>
+{% endblock %}

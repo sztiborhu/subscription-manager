@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ElőfizetésManager - Segítség</title>
+    <link rel="stylesheet" href="static/style.css">
+    <style>
+.help-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.help-section {
+    margin-bottom: 30px;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.help-section h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.help-content {
+    color: #34495e;
+}
+
+.help-content h3 {
+    color: #2980b9;
+    margin: 15px 0 10px 0;
+}
+
+.help-content ul, .help-content ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.help-content li {
+    margin-bottom: 5px;
+}
+
+.help-content p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+
+<a href="{{ url_for('main.main_page') }}"><- Vissza az alkalmazáshoz</a>
+<div class="help-container">
+    <h1>Használati útmutató</h1>
+
+    <section class="help-section">
+        <h2>Első lépések</h2>
+        <div class="help-content">
+            <h3>Regisztráció</h3>
+            <p>Az alkalmazás használatához először regisztrálnod kell egy fiókot:</p>
+            <ol>
+                <li>Kattints a "Nincs még fiókod?" feliratra a bejelentkező oldalon</li>
+                <li>Töltsd ki a regisztrációs űrlapot a következő adatokkal:
+                    <ul>
+                        <li>E-mail cím</li>
+                        <li>Jelszó</li>
+                        <li>Jelszó ismételve</li>
+                    </ul>
+                </li>
+                <li>Kattints a "Regisztráció" gombra</li>
+            </ol>
+            <h3>Bejelentkezés</h3>
+            <p>Miután létrehoztad a fiókod:</p>
+            <ol>
+                <li>Töltsd ki a bejelentkező űrlapot a következő adatokkal:
+                    <ul>
+                        <li>E-mail cím</li>
+                        <li>Jelszó</li>
+                    </ul>
+                </li>
+                <li>Kattints a "Bejelentkezés" gombra</li>
+            </ol>
+        </div>
+    </section>
+
+        <section class="help-section">
+        <h2>Kategóriák kezelése</h2>
+        <div class="help-content">
+            <h3>Kategóriák használata</h3>
+            <p>A kategóriák segítenek rendszerezni az előfizetéseidet. Minden előfizetéshez választhatsz egy kategóriát, ami segít a jobb áttekinthetőségben és a statisztikák készítésében.</p>
+            <p>Ahhoz, hogy hozzá tudj adni előfizetéseket a rendszerhez, előtte létre kell hoznod legalább egy kategóriát.</p>
+            <ol>
+                <li>Navigálj a "Kategóriák" oldalra</li>
+                <li>Az oldal alján, az "Új kategória hozzáadása" cím alatt add hozzá a kategóriát</li>
+                <li>Az alkalmazás tájékoztat a sikeres hozzáadásról</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="help-section">
+        <h2>Előfizetések kezelése</h2>
+        <div class="help-content">
+            <h3>Új előfizetés hozzáadása</h3>
+            <ol>
+                <li>Navigálj a "Előfizetéseim" oldalra</li>
+                <li>Töltsd ki az előfizetés adatait:
+                    <ul>
+                        <li>Előfizetés neve</li>
+                        <li>Kategória</li>
+                        <li>Előfizetés ára</li>
+                    </ul>
+                </li>
+                <li>Kattints a "Hozzáadás" gombra</li>
+                <li>Az alkalmazás tájékoztat a sikeres hozzáadásról</li>
+            </ol>
+
+            <h3>Előfizetés szerkesztése</h3>
+            <ol>
+                <li>Keress meg egy előfizetést a táblázatban</li>
+                <li>Kattints a "Szerkesztés" gombra</li>
+                <li>Módosítsd a kívánt adatokat</li>
+                <li>Kattints a "Mentés" gombra</li>
+            </ol>
+
+            <h3>Előfizetés törlése</h3>
+            <ol>
+                <li>Keress meg egy előfizetést a listában</li>
+                <li>Kattints a "Törlés" gombra</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="help-section">
+        <h2>Statisztikák</h2>
+        <div class="help-content">
+            <h3>Elérhető statisztikák</h3>
+            <p>A főoldalon érhetőek el az alkalmazás által kiszámított statisztikák.</p>
+        </div>
+    </section>
+
+</div>
+
+
+
+</body>
+</html>
+

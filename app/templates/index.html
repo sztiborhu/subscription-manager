@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="stats-grid">
+    <div class="statistics">
+      <h2>Statisztikák</h2>
+      <p><strong>Előfizetések száma:</strong> {{ total_subscriptions }}</p>
+      <p><strong>Kategóriák száma:</strong> {{ num_categories }}</p>
+      <p><strong>Összes havi költség:</strong> {{ total_cost }} Ft</p>
+      <p><strong>Átlagos előfizetés ára:</strong> {{ avg_price }} Ft</p>
+      <p><strong>Legdrágább előfizetés:</strong> {{ most_expensive.name if most_expensive else '-' }} ({{ most_expensive.price if most_expensive else '-' }} Ft)</p>
+      <p><strong>Legolcsóbb előfizetés:</strong> {{ least_expensive.name if least_expensive else '-' }} ({{ least_expensive.price if least_expensive else '-' }} Ft)</p>
+      <p><strong>Legnépszerűbb kategória:</strong> {{ most_popular_category }}</p>
+      <h3>Előfizetések száma kategóriánként</h3>
+      <ul>
+        {% for cat, count in subs_per_category.items() %}
+          <li>{{ cat }}: {{ count }} db ({{ percent_per_category[cat] }}%)</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div>
+      <div class="chart-container">
+        <h3>Kategóriánkénti költés</h3>
+        <canvas id="categoryChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <h3>Előfizetések százalékos megoszlása kategóriánként</h3>
+        <canvas id="pieChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <h3>Előfizetések száma kategóriánként</h3>
+        <canvas id="countChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Kategóriánkénti költés oszlopdiagram
+    const categoryLabels = JSON.parse('{{ category_spending.keys()|list|tojson|safe }}');
+    const categoryData = JSON.parse('{{ category_spending.values()|list|tojson|safe }}');
+    const ctx = document.getElementById('categoryChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: categoryLabels,
+        datasets: [{
+          label: 'Költés (Ft)',
+          data: categoryData,
+          backgroundColor: '#3498db',
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 }
+          }
+        }
+      }
+    });
+
+    // Kategóriánkénti előfizetések százalékos megoszlása kördiagram
+    const pieLabels = JSON.parse('{{ percent_per_category.keys()|list|tojson|safe }}');
+    const pieData = JSON.parse('{{ percent_per_category.values()|list|tojson|safe }}');
+    const pieColors = ['#3498db', '#2ecc71', '#e67e22', '#e74c3c', '#9b59b6', '#f1c40f', '#1abc9c', '#34495e'];
+    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    new Chart(pieCtx, {
+      type: 'pie',
+      data: {
+        labels: pieLabels,
+        datasets: [{
+          data: pieData,
+          backgroundColor: pieColors,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' },
+          title: { display: false }
+        }
+      }
+    });
+
+    // Előfizetések száma kategóriánként oszlopdiagram
+    const countLabels = JSON.parse('{{ subs_per_category.keys()|list|tojson|safe }}');
+    const countData = JSON.parse('{{ subs_per_category.values()|list|tojson|safe }}');
+    const countCtx = document.getElementById('countChart').getContext('2d');
+    new Chart(countCtx, {
+      type: 'bar',
+      data: {
+        labels: countLabels,
+        datasets: [{
+          label: 'Előfizetések száma',
+          data: countData,
+          backgroundColor: '#2ecc71',
+          borderRadius: 6
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: { display: false }
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 }
+          }
+        }
+      }
+    });
+  </script>
+{% endblock %}

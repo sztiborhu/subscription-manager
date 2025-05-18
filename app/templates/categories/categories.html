@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="categories-page">
+  <h1>Kategóriák</h1>
+  <h2>Eddigi kategóriáid</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Név</th>
+        <th>Darabszám</th>
+        <th>Összes költség</th>
+        <th>Műveletek</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+        <tr>
+          <td>{{ category.name }}</td>
+          <td>{{ category_quantity[category.id] }} db</td>
+          <td>{{ category_prices[category.id] }} Ft</td>
+          <td>
+            <a href="{{ url_for('main.edit_category', category_id=category.id) }}">Szerkesztés</a>
+            <a href="{{ url_for('main.delete_category', category_id=category.id) }}">Törlés</a>
+          </td>
+        </tr>
+      {% endfor %}
+  </table>
+  <h2>Új kategória hozzáadása</h2>
+    <form method="POST" action="{{ url_for('main.add_category') }}">
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}
+            {% for error in form.name.errors %}
+            <br><span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <br>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+</div>
+{% endblock %}
